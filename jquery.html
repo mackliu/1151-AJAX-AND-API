@@ -56,7 +56,6 @@ li:hover {
       console.log(data)
       buildEventList(data);
     })
-
  function buildEventList(data){
     let title=data.title
         let titleContainer=document.querySelector(".title");
@@ -65,8 +64,18 @@ li:hover {
         let ul=document.querySelector('#EventList');
         let event='';
         for(let i=0;i<events.length/4;i++){
+            // 提取 summary 和 content，防止未定義的情況
+            let summary = events[i].summary || '暫無摘要';
+            let content = events[i].content || '暫無內容';
+            let url = events[i].url || '#';
+            
             event=event+`<li>
-                           <h3>${events[i].title}</h3>
+                           <div class="event-title">${events[i].title}</div>
+                           <div class="event-summary"><strong>摘要：</strong>${summary}</div>
+                           <div class="event-content"><strong>內容：</strong>${content}</div>
+                           <div class="event-url">
+                               <a href="${url}" target="_blank" title="查看更多">🔗 查看活動詳情</a>
+                           </div>
                          </li>`
         }
         console.log(event)
